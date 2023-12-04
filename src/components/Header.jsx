@@ -4,6 +4,7 @@ import { RiVideoAddLine } from "react-icons/ri";
 import { FaRegBell } from "react-icons/fa6";
 import { FaUserCircle } from "react-icons/fa";
 import { MdKeyboardVoice } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -11,7 +12,9 @@ const Header = () => {
 
       <div className="flex items-center gap-6">
         <RxHamburgerMenu className="text-2xl" />
-        <img src="./images/logo.png" alt="logo" className="h-5" />
+        <Link to="/">
+          <img src="./images/logo.png" alt="logo" className="h-5" />
+        </Link>
       </div>
 
       <div className="flex items-center gap-6">
