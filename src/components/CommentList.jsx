@@ -1,5 +1,4 @@
 const CommentList = ({ comment }) => {
-        
     return (
         <li className="flex items-start gap-3">
             <img src={comment?.snippet?.topLevelComment?.snippet?.authorProfileImageUrl} alt="authorimg" className="rounded-full w-10" onClick={() => location.href = `${comment?.snippet?.topLevelComment?.snippet?.authorChannelUrl}`} />

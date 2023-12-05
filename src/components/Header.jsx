@@ -1,5 +1,5 @@
 import { RxHamburgerMenu } from "react-icons/rx";
-import { IoSearchOutline } from "react-icons/io5";
+import { IoCloseOutline, IoSearchOutline } from "react-icons/io5";
 import { RiVideoAddLine } from "react-icons/ri";
 import { FaRegBell } from "react-icons/fa6";
 import { FaUserCircle } from "react-icons/fa";
@@ -8,21 +8,47 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
 import { useEffect, useState } from "react";
+import { YOUTUBE_SEARCH_SUGGESTION_API } from "../utils/constants";
 
 const Header = () => {
   const [SearchText, setSearchText] = useState("");
+  const [Suggestions, setSuggestions] = useState([])
   const dispatch = useDispatch();
 
   useEffect(() => {
-    
-  },[SearchText]);
+    const timer = setTimeout(() => {
+      getSearchSuggestions();
+    }, 2000)
 
-  const handleSearch = () => {
+    return () => {
+      clearTimeout(timer);
+    }
+  }, [SearchText]);
 
+  const getSearchSuggestions = async () => {
+    try {
+      const res = await fetch(YOUTUBE_SEARCH_SUGGESTION_API + SearchText);
+      if (!res.ok) {
+        const err = res.status;
+        throw new Error(err)
+      }
+      else {
+        const json = await res.json();
+        console.log(json[1])
+        setSuggestions(json[1]);
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const handleSidebar = () => {
-      dispatch(toggleMenu());
+    dispatch(toggleMenu());
+  }
+
+  const handleClearSearch = () => {
+    setSearchText("");
+    setSuggestions("");
   }
 
   return (
@@ -36,11 +62,35 @@ const Header = () => {
       </div>
 
       <div className="flex items-center gap-6">
-        <div className="flex items-center h-11">
-          <input type="text" placeholder="Search" className="bg-[#121212] text-[#ffffffe0] border border-[#303030] w-[550px] h-full rounded-l-full pl-5" value={SearchText} />
-          <div className="text-2xl bg-[#ffffff14] h-full flex items-center justify-center w-16 rounded-r-full cursor-pointer">
-            <IoSearchOutline />
+        <div className="relative">
+          <div className="flex items-center">
+            <div className="flex items-center h-11 relative">
+              <input type="text" placeholder="Search" className="bg-[#121212] text-[#ffffffe0] border border-[#303030] w-[550px] h-full rounded-l-full pl-5" value={SearchText} onChange={e => setSearchText(e.target.value)} />
+              {
+                Suggestions.length != 0 && <IoCloseOutline className="text-3xl absolute right-2 cursor-pointer" onClick={handleClearSearch} />
+              }
+            </div>
+            <div className="text-2xl bg-[#ffffff14] flex items-center justify-center w-16 rounded-r-full cursor-pointer h-11">
+              <IoSearchOutline />
+            </div>
           </div>
+          {
+            Suggestions.length != 0 &&
+            <ul className="absolute top-[3rem] left-0 right-0 w-[550px] rounded-xl shadow-lg bg-[#212121] pt-5 pb-3">
+              {
+                Suggestions?.map((item) => (
+                  <li key={item} className="pt-2 pb-2 mb-1 pl-5 cursor-pointer hover:bg-[#ffffff1a] flex gap-6">
+                    <button type="submit" className="text-lg">
+                      <IoSearchOutline />
+                    </button>
+                    <div className="inline-block">
+                      <p className="font-medium">{item}</p>
+                    </div>
+                  </li>
+                ))
+              }
+            </ul>
+          }
         </div>
         <button className="bg-[#ffffff14] h-11 flex justify-center items-center w-11 rounded-full cursor-pointer">
           <MdKeyboardVoice className="text-2xl" />
