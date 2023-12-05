@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 const VideoCard = ({ info }) => {
     const [ChannelInfo, setChannelInfo] = useState({});
 
-    const { title, thumbnails, channelId,publishedAt } = info?.snippet;
+    const { title, thumbnails, channelId } = info?.snippet;
     const { viewCount } = info?.statistics;
     const { duration } = info?.contentDetails;
 
@@ -77,7 +77,7 @@ const VideoCard = ({ info }) => {
             </div>
             <div className="flex gap-3 items-start mt-3">
                 <img src={channelThumb?.default?.url} alt="thumbnail" className="w-8 h-8 rounded-full" />
-                <div className="tracking-tight pr-5"> 
+                <div className="tracking-tight pr-5">
                     <h2 className='font-medium leading-6'>{truncateString(title)}</h2>
                     <p className='text-[#aaa] text-sm pt-1 leading-'>{channelTitle}</p>
                     <span className='text-[#aaa] text-sm'>{ConvertViews(viewCount)}</span>

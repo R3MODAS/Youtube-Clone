@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-*,*::before,*::after{
+*,
+*::before,
+*::after {
     font-family: 'Roboto', sans-serif;
 }
 
@@ -10,8 +12,20 @@ html {
     font-family: 'Roboto', sans-serif;
 }
 
+body::-webkit-scrollbar {
+    width: 16px;
+}
 
-body{
+body::-webkit-scrollbar-thumb {
+    height: 56px;
+    border-radius: 8px;
+    border: 4px solid transparent;
+    background-clip: content-box;
+    background-color: hsl(0, 0%, 67%)
+}
+
+
+body {
     background-color: #0F0F0F;
     color: white;
 }

@@ -5,19 +5,26 @@ import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from './pages/Home.jsx'
 import WatchPage from './pages/WatchPage.jsx'
+import MainContainer from './components/MainContainer.jsx'
 
 const appRouter = createBrowserRouter([
   {
-    path : "/",
-    element : <App />,
-    children : [
+    path: "/",
+    element: <App />,
+    children: [
       {
-        path : "/",
-        element : <Home />
-      },
-      {
-        path : "/watch",
-        element : <WatchPage />
+        path: "/",
+        element: <Home />,
+        children: [
+          {
+            path: "/",
+            element: <MainContainer />
+          }, 
+          {
+            path: "/watch",
+            element: <WatchPage />
+          }
+        ]
       }
     ]
   }
