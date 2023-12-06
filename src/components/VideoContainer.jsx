@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { YOUTUBE_VIDEO_API } from '../utils/constants';
 import VideoCard from './VideoCard';
 import { Link } from 'react-router-dom';
+import ShimmerUi from './ShimmerUi';
 
 const VideoContainer = () => {
 
@@ -26,6 +27,10 @@ const VideoContainer = () => {
     } catch (error) {
       console.log(error)
     }
+  }
+
+  if(Videos.length <= 0){
+    return <ShimmerUi />
   }
 
   return (

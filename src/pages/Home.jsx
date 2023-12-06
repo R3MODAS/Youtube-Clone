@@ -3,10 +3,10 @@ import Sidebar from "../components/Sidebar";
 
 const Home = () => {
   return (
-    <div className="relative">
+    <>
       <Sidebar />
       <Outlet />
-    </div>
+    </>
   )
 }
 

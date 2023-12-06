@@ -36,13 +36,36 @@ const VideoCard = ({ info }) => {
         const removePT = durationStr?.slice(2);
 
         // Split the Minutes and Seconds
-        const [Minute, seconds] = removePT?.split("M");
+        const value = removePT.includes("M") ? removePT?.split("M") : removePT?.split("S")
 
-        // Removing the S in Seconds
-        const Seconds = seconds?.slice(0, -1);
+        const [minute, second] = value;
 
-        const resultStr = `${Minute}:${Seconds}`;
-        return resultStr;
+        // Removing the S and M
+        const Minute = minute?.slice(0, -1);
+        const Seconds = second?.slice(0, -1);
+        
+        if (Minute && Seconds) {
+            if(Seconds.length === 1){
+                return `${Minute}:0${Seconds}`;
+            }
+            else{
+                return `${Minute}:${Seconds}`;
+            }
+        }
+        else if (Minute) {
+            if(Minute.length === 1){
+                return `${Minute}:00`;
+            }else{
+                return `0${Minute}`;
+            }
+        }
+        else {
+            if(Seconds.length === 1){
+                return `0:${Seconds}0`;
+            }else{
+                return `0:${Seconds}`;
+            }
+        }
     }
 
     const truncateString = (str) => {

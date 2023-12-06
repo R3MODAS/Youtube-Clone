@@ -18,7 +18,7 @@ const WatchPage = () => {
 
   const fetchComments = async () => {
     try {
-      const res = await fetch(`https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=100&videoId=${VideoId}&key=${API_KEY}`);
+      const res = await fetch(`https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=30&videoId=${VideoId}&key=${API_KEY}`);
 
       if (!res.ok) {
         const err = res.status;
