@@ -32,7 +32,7 @@ const VideoContainer = () => {
     <div className='flex flex-wrap gap-3'>
       {
         Videos?.map((item) => (
-          <Link key={item?.id} className='w-80 mb-2' to={`/watch?v=${item?.id}`}>
+          <Link key={item?.id} className='w-80 mb-2 hover:scale-95 transition-all' to={`/watch?v=${item?.id}`}>
             <VideoCard key={item?.id} info = {item} />
           </Link>
         ) )
